@@ -1,8 +1,9 @@
-package com.ultrapower;
+package com.ultrapower.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 
 @Entity
 public class Girl {
@@ -29,5 +30,12 @@ public class Girl {
 		this.age = age;
 	}
 	private String cupSize;
+	@Min(value=18,message="年龄不能小于18岁！")
 	private Integer age;
+	@Override
+	public String toString() {
+		return "Girl [id=" + id + ", cupSize=" + cupSize + ", age=" + age + "]";
+	}
+	
+	
 }

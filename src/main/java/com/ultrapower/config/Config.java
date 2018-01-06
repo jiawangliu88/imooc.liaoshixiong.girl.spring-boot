@@ -1,4 +1,4 @@
-package com.ultrapower;
+package com.ultrapower.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

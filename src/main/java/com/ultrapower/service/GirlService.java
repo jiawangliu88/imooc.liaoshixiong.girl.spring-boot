@@ -5,8 +5,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ultrapower.Girl;
-import com.ultrapower.GirlRepository;
+import com.ultrapower.domain.Girl;
+import com.ultrapower.repository.GirlRepository;
 
 @Service
 public class GirlService {

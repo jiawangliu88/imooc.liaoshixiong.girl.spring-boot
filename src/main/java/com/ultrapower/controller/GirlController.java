@@ -1,8 +1,11 @@
-package com.ultrapower;
+package com.ultrapower.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ultrapower.domain.Girl;
+import com.ultrapower.repository.GirlRepository;
 import com.ultrapower.service.GirlService;
 
 @RestController
@@ -27,10 +32,14 @@ public class GirlController {
 	}
 	
 	@PostMapping(value="/girls")
-	public Girl girlAdd(@RequestParam("cupSize") String cupSize,@RequestParam("age") Integer age) {
-		Girl girl = new Girl();
-		girl.setAge(age);
-		girl.setCupSize(cupSize);
+	public Girl girlAdd(@Valid Girl girl,BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			System.out.println(bindingResult.getFieldError().getDefaultMessage());
+			return null;
+		}
+//		Girl girl = new Girl();
+//		girl.setAge(age);
+//		girl.setCupSize(cupSize);
 		
 		return girlRepository.save(girl);
 	}
