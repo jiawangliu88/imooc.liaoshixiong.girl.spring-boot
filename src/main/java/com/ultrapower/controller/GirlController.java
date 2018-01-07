@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ultrapower.domain.Girl;
+import com.ultrapower.domain.Result;
 import com.ultrapower.repository.GirlRepository;
 import com.ultrapower.service.GirlService;
+import com.ultrapower.utils.ResultUtil;
 
 @RestController
 public class GirlController {
@@ -32,16 +34,12 @@ public class GirlController {
 	}
 	
 	@PostMapping(value="/girls")
-	public Girl girlAdd(@Valid Girl girl,BindingResult bindingResult) {
+	public Result<Girl> girlAdd(@Valid Girl girl,BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			System.out.println(bindingResult.getFieldError().getDefaultMessage());
 			return null;
+		//	return ResultUtil.error(1, bindingResult.getFieldError().getDefaultMessage());
 		}
-//		Girl girl = new Girl();
-//		girl.setAge(age);
-//		girl.setCupSize(cupSize);
-		
-		return girlRepository.save(girl);
+		return ResultUtil.success(girlRepository.save(girl));
 	}
 	
 	@GetMapping(value="/girls/{id}")
@@ -68,5 +66,10 @@ public class GirlController {
 	@PostMapping(value="/girls/insert")
 	public void insertTwo() {
 		girlService.inertTwo();
+	}
+	
+	@GetMapping(value="girls/getAge/{id}")
+	public void getAge(@PathVariable("id") Integer id) throws Exception {
+		girlService.getAge(id);
 	}
 }
